@@ -1,0 +1,51 @@
+<div class="container mt-4">
+    <!-- User Profile Header -->
+    <div class="card mb-3 p-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="d-flex align-items-center">
+                    <!-- User Icon -->
+                    <img src="https://via.placeholder.com/80" class="rounded-circle me-3" alt="User Icon">
+                    <div>
+                        <h4 class="mb-1">Name: {{authService.user.customerName}}</h4>
+                        <p class="mb-0">Email: {{authService.user.customerEmail}}</p>
+                        <p class="mb-0">Phone: {{authService.user.customerPhone}}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit Button -->
+            <!-- <div>
+                <button class="btn btn-outline-dark">Edit</button>
+            </div> -->
+        </div>
+    </div>
+
+<!-- Sidebar and Content Section -->
+<div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <div class="list-group mt-4">
+        <a routerLink="manage-orders" routerLinkActive="active" class="list-group-item list-group-item-action">
+          Manage Orders
+        </a>
+        <a routerLink="address" routerLinkActive="active" class="list-group-item list-group-item-action">
+          Address
+        </a>
+        <a routerLink="manage-notifications" routerLinkActive="active" class="list-group-item list-group-item-action">
+          Manage Notifications
+        </a>
+        <a routerLink="faqs" routerLinkActive="active" class="list-group-item list-group-item-action">
+          FAQs
+        </a>
+        <a routerLink="order-history" routerLinkActive="active" class="list-group-item list-group-item-action">
+            Orders History
+          </a>
+      </div>
+    </div>
+
+    <!-- Dynamic Content Section -->
+    <div class="col-md-9">
+      <router-outlet></router-outlet> <!-- This will load the respective child component -->
+    </div>
+  </div>
+</div>

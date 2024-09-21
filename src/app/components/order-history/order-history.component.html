@@ -1,0 +1,36 @@
+<div class="container mt-4">
+    <h2 class="my-4" style="color: #E23745;">Order History</h2>
+    
+    <div *ngIf="orderHistory.length > 0; else emptyCart">
+      <div class="row">
+        <div class="col-md-8">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of orderHistory">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h5>{{ item.menu.menuName }}</h5>
+                  <p>Quantity: {{ item.placedOrderQty }}</p>
+                  <p>Price: ₹{{ item.menu.menuPrice }}</p>
+                  <p>Price: {{ item.delivery }}</p>
+
+                </div>
+                <!-- <button style="background-color: #E23745; color:#fff; border-color: #E23745;" class="btn" (click)="removeItemFromCart(item.menu, item.cartId)">Remove</button> -->
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <h5 class="mt-4" style="color: #E23745;">Total cart price: {{ totalCartPrice }} </h5> -->
+
+      <!-- <div class="mt-4">
+        <button class="btn mx-2" style="background-color: #E23745; color:#fff; border-color: #E23745;" (click)="clearCart(authService.user.customerId)">Clear Cart</button>
+        <button class="btn" style="background-color: #E23745; color:#fff; border-color: #E23745;" (click)="buyAllCartItems(authService.user.customerId)">Buy Now</button>
+      </div> -->
+    </div>
+  
+    <ng-template #emptyCart>
+      <p>Ooops yu have no order history, order now !!!</p>
+    </ng-template>
+  </div>
+  

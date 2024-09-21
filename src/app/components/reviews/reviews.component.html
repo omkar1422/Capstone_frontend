@@ -1,0 +1,39 @@
+<!-- reviews.component.html -->
+<div class="container my-4">
+    <h4 class="mb-4">Reviews</h4>
+    
+    <!-- Rating Summary -->
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <h1 class="display-4" style="color: #E23745;">{{ averageRating }}</h1>
+        <div class="stars" [ngClass]="getStarRatingClass(averageRating)"></div>
+        <p>{{ totalReviews }}+ reviews</p>
+      </div>
+      
+      <div class="col-md-8">
+        <div class="rating-bar" *ngFor="let rate of ratingBreakdown">
+          <span>{{ rate.stars }} </span>
+          <div class="progress" style="height: 8px; background-color: #f5f5f5;">
+            <div class="progress-bar" [style.width]="rate.percentage + '%'" style="background-color: #E23745;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Reviews List -->
+    <h5 class="mt-4">All reviews</h5>
+    <div class="review-list" *ngFor="let review of reviews">
+      <div class="d-flex align-items-center mb-3">
+        <div class="avatar" [ngStyle]="{'background-color': review.avatarColor}">
+          <span>{{ review.customerInitial }}</span>
+        </div>
+        <div class="ms-3">
+          <h6 class="m-0">{{ review.customerName }}</h6>
+          <div class="stars" [ngClass]="getStarRatingClass(review.rating)"></div>
+          <p class="text-muted">{{ review.date }}</p>
+        </div>
+      </div>
+      <p>{{ review.comment }}</p>
+    </div>
+  </div>
+  

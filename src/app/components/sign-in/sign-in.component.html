@@ -1,0 +1,25 @@
+
+<div class="container pt-5">
+    <div class="display-5">Sign In</div>
+    <hr>
+    <form class="d-flex" (ngSubmit)="signInOnSubmit(signInForm)" #signInForm="ngForm">
+      <div class="container">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="customerEmail" #email="ngModel" [(ngModel)]="user.customerEmail"
+          >
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1"
+          name="customerPassword" #password="ngModel" [(ngModel)]="user.customerPassword"
+          >
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      </div>
+      <div class="container mx-4">
+        <img width="600px" height="400px" src="../../../assets/images/signup-transformed.jpeg" alt="resto-img">
+      </div>
+    </form>
+</div>

@@ -1,0 +1,37 @@
+
+  <nav class="navbar navbar-expand-lg " style="background-color: #E23745; color: #fff;" data-bs-theme="light">
+    <div class="container-fluid">
+      <!-- <a class="navbar-brand" routerLink="/">Restaurant Listing</a> -->
+       <img src="../../../assets/images/image (1).png" alt="" height="50px" width="50px">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+            </li>
+            <li class="nav-item" *ngIf="authService.isCustomerLoggedIn">
+              <a class="nav-link" routerLink="/profile" routerLinkActive="active">Hii {{authService.user.customerName}}</a>
+            </li>
+            <li class="nav-item" *ngIf="authService.isCustomerLoggedIn">
+              <a class="nav-link" routerLink="/cart" routerLinkActive="active">My Cart</a>
+            </li>
+            <li class="nav-item" *ngIf="!authService.isCustomerLoggedIn">
+              <a class="nav-link" routerLink="/signin" routerLinkActive="active">Sign In</a>
+          </li>
+          <li class="nav-item" *ngIf="!authService.isCustomerLoggedIn" >
+              <a class="nav-link" routerLink="/signup" routerLinkActive="active">Sign Up</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.isCustomerLoggedIn" >
+            <a (click)="signOutUser()" class="nav-link" routerLink="/" routerLinkActive="active">Sign Out</a>
+        </li>
+        
+          </ul>
+        <form class="d-flex">
+          <input class="form-control me-sm-2" type="search" placeholder="Search">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>

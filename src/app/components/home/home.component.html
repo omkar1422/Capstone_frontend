@@ -1,0 +1,29 @@
+<div class="container py-5">
+  <div class="row">
+    <ng-container *ngFor="let restaurant of restaurantsList">
+      <div class="col-md-3">
+        <div (click)="getRestaurantDetails(restaurant)" class="card mb-3" style="border-radius: 10px; border: none;">
+          <img src="{{restaurant.restaurantImage}}" class="card-img-top" alt="{{restaurant.restaurantName}}"
+            style="height: 200px; border-radius: 10px;">
+          <div class="card-body" style="border: none;">
+            <h5 class="card-title">{{restaurant.restaurantName}}</h5>
+
+            <!-- Average Rating and Stars -->
+            <div class="d-flex align-items-center">
+              <!-- Display stars dynamically -->
+              <ng-container *ngFor="let star of getStars(restaurant.restaurantAvgRating); let i = index">
+                <i [ngClass]="star" aria-hidden="true" style="color: #FFD700;"></i>
+              </ng-container>
+              <span class="ms-2">{{restaurant.restaurantAvgRating}}</span>
+            </div>
+
+            <!-- Additional Restaurant Details (commented out) -->
+            <!-- <p>{{restaurant.deliveryTime}}</p>
+            <p>{{restaurant.cuisineType}}</p>
+            <p>{{restaurant.location}}</p> -->
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <h3>Menu</h3>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let menu of menus">
+      <div class="card my-3">
+        <img [src]="menu.menuImage" class="card-img-top" alt="{{ menu.menuName }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ menu.menuName }}</h5>
+          <p class="card-text">{{ menu.menuName }}</p>
+          <p><strong>₹{{ menu.menuPrice }}</strong></p>
+
+          <!-- Add Button or Quantity Selector -->
+          <div *ngIf="menu.quantity === 0; else qtyButtons">
+            <button class="btn btn-outline-primary btn-block" 
+                    (click)="addToSelection(menu)"
+                    style="color: #E23745; border-color: #E23745;">
+              Add
+            </button>
+          </div>
+
+          <!-- Quantity Selector -->
+          <ng-template #qtyButtons>
+            <div class="input-group">
+              <button class="btn btn-outline-secondary" 
+                      (click)="decrementQuantity(menu)" 
+                      style="color: #E23745; border-color: #E23745;">
+                -
+              </button>
+              <input type="text" class="form-control text-center" 
+                     [value]="menu.quantity" 
+                     readonly 
+                     style="border-color: #E23745;">
+              <button class="btn btn-outline-secondary" 
+                      (click)="incrementQuantity(menu)" 
+                      style="color: #E23745; border-color: #E23745;">
+                +
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add to Cart Button to Add All Selected Items -->
+  <div class="row">
+    <div class="col-md-12 text-center mt-4">
+      <button class="btn btn-success" 
+              (click)="finalizeAddToCart()" 
+              style="background-color: #E23745; border-color: #E23745;">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
