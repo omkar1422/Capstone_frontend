@@ -1,39 +1,101 @@
 <!-- reviews.component.html -->
 <div class="container my-4">
-    <h4 class="mb-4">Reviews</h4>
-    
-    <!-- Rating Summary -->
-    <div class="row">
-      <div class="col-md-4 text-center">
-        <h1 class="display-4" style="color: #E23745;">{{ averageRating }}</h1>
-        <div class="stars" [ngClass]="getStarRatingClass(averageRating)"></div>
-        <p>{{ totalReviews }}+ reviews</p>
+  <h4 class="mb-4">Reviews</h4>
+
+  <!-- Rating Summary -->
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <h1 class="display-4" style="color: #E23745;">{{ averageRating }}</h1>
+      <div class="stars" [ngClass]="getStarRatingClass(averageRating)"></div>
+      <div *ngIf="ratings && ratings.length > 0">
+        <p>{{ ratings.length }}+ reviews</p>
       </div>
-      
-      <div class="col-md-8">
-        <div class="rating-bar" *ngFor="let rate of ratingBreakdown">
-          <span>{{ rate.stars }} </span>
-          <div class="progress" style="height: 8px; background-color: #f5f5f5;">
-            <div class="progress-bar" [style.width]="rate.percentage + '%'" style="background-color: #E23745;"></div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="rating-bar" *ngFor="let rate of ratingBreakdown">
+        <span>{{ rate.stars }} </span>
+        <div class="progress" style="height: 8px; background-color: #f5f5f5;">
+          <div class="progress-bar" [style.width]="rate.percentage + '%'" style="background-color: #E23745;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-4">
+    <!-- <h4 class="mb-4">Reviews</h4> -->
+
+    <!-- All Reviews Section -->
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+
+        <!-- Post a Review Section -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5>Post a Review</h5>
+
+            <form (submit)="submitReview()">
+              <div class="mb-3">
+                <label for="rating" class="form-label">Your Rating:</label>
+
+                <div class="star-rating">
+                  <!-- Loop through stars to display and handle click/hover events -->
+                  <div class="star-rating">
+                    <i class="bi mx-2" *ngFor="let star of stars; let index = index" [ngClass]="{
+                           'bi-star-fill': index < selectedRating || index < hoveredRating,
+                           'bi-star': index >= selectedRating && index >= hoveredRating
+                       }" (mouseover)="hoverRating(index + 1)" (mouseleave)="hoveredRating = 0"
+                      (click)="selectRating(index + 1)">
+                    </i>
+                  </div>
+                </div>
+              </div>
+              <!-- Rating Input -->
+
+              <!-- Review Text -->
+              <div class="mb-3">
+                <label for="reviewText" class="form-label">Your Review:</label>
+                <textarea [(ngModel)]="reviewText" name="reviewText" id="reviewText" rows="3" class="form-control"
+                  placeholder="Share your thoughts about this restaurant..."></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn" style="background-color: #E23745; color: #fff;">Submit Review</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Review Card for each rating -->
+        <div *ngFor="let rating of ratings" class="card shadow-sm mb-4">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <!-- Avatar with initials or customer email -->
+              <div class="avatar rounded-circle text-white d-flex justify-content-center align-items-center"
+                style="width: 50px; height: 50px; font-size: 18px; background-color: #E23745;">
+                <span>{{ getInitials(rating.customer.customerName) }}</span>
+              </div>
+
+              <div class="ms-3">
+                <!-- Customer Name and Rating -->
+                <h5 class="mb-0">{{ rating.customer.customerName }}</h5>
+                <small class="text-muted">{{ rating.customer.customerEmail }}</small>
+                <div class="stars" [ngClass]="getStarRatingClass(rating.rating)">
+                  <!-- Display stars for the rating -->
+                  <ng-container *ngFor="let star of [].constructor(5); let i = index">
+                    <i class="fa" [ngClass]="i < rating.rating ? 'fa-star text-warning' : 'fa-star-o text-muted'"></i>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review Content -->
+            <hr class="my-3">
+            <p class="card-text">{{ rating.reviewText ? rating.reviewText : 'No comments provided.' }}</p>
           </div>
         </div>
       </div>
     </div>
-  
-    <!-- Reviews List -->
-    <h5 class="mt-4">All reviews</h5>
-    <div class="review-list" *ngFor="let review of reviews">
-      <div class="d-flex align-items-center mb-3">
-        <div class="avatar" [ngStyle]="{'background-color': review.avatarColor}">
-          <span>{{ review.customerInitial }}</span>
-        </div>
-        <div class="ms-3">
-          <h6 class="m-0">{{ review.customerName }}</h6>
-          <div class="stars" [ngClass]="getStarRatingClass(review.rating)"></div>
-          <p class="text-muted">{{ review.date }}</p>
-        </div>
-      </div>
-      <p>{{ review.comment }}</p>
-    </div>
   </div>
-  
+
+
+</div>

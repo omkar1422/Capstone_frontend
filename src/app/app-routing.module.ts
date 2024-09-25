@@ -13,6 +13,7 @@ import { AddressComponent } from './components/address/address.component';
 import { ManageNotificationsComponent } from './components/manage-notifications/manage-notifications.component';
 import { FaqsComponent } from './components/faqs/faqs.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
 
 export const profileGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
   return inject(AuthService).canActivate()
@@ -51,7 +52,7 @@ const routes: Routes = [
     component: MenuComponent
   },
   {
-    path: "restaurantDetails",
+    path: "restaurantDetails/:restaurantId",
     component: RestaurantDetailsComponent
   },
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: "placed-orders",
     component: PlacedOrdersComponent
+  },
+  {
+    path: "restaurantDetails/:restaurantId/reviews",
+    component: ReviewsComponent
   }
 ];
 

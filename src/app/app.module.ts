@@ -21,6 +21,8 @@ import { PlacedOrdersComponent } from './components/placed-orders/placed-orders.
 import { AddressComponent } from './components/address/address.component';
 import { ManageNotificationsComponent } from './components/manage-notifications/manage-notifications.component';
 import { FaqsComponent } from './components/faqs/faqs.component';
+import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
+
 
 @NgModule({
   declarations: [

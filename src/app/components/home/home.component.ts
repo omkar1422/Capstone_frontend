@@ -26,7 +26,7 @@ export class HomeComponent {
 
   getRestaurantDetails(restaurant: Restaurant) {
 
-    this.menuService.getRestaurantById(restaurant.restaurantId)
+    this.menuService.getRestaurantById(restaurant)
   }
 
   getAllRestaurants() {
@@ -37,9 +37,9 @@ export class HomeComponent {
 
         this.restaurantsService.getAvgRating(this.restaurantsList[i].restaurantId).subscribe(
           response => {
-            console.log("avgRating: " + response);
+            // console.log("avgRating: " + response);
             
-            this.restaurantsList[i].restaurantAvgRating = response
+            this.restaurantsList[i].restaurantAvgRating = Math.round(response * 10) / 10;
           }
         )
       }

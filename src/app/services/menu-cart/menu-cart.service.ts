@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AddToCart } from 'src/app/model/add-to-cart';
+import { Restaurant } from 'src/app/model/restaurant';
 import { RestaurantsMenu } from 'src/app/model/restaurants-menu';
 
 @Injectable({
@@ -50,19 +51,22 @@ export class MenuCartService {
     this.cartItemsSubject.next(this.cartItems); // Notify subscribers
   }
 
-  getRestaurantById(restaurantId: string){
-    const url = `http://localhost:8080/restaurantListings/api/restaurant/getById/${restaurantId}`;
-    const currentUser: any = localStorage.getItem('currentUser');
-    const user = JSON.parse(currentUser);
-    const header = new HttpHeaders({ Authorization: `Bearer ${user['jwt']}` });
+  getRestaurantById(restaurant: Restaurant){
+    console.log("restaurant: " + JSON.stringify(restaurant))
+    
+    const url = `http://localhost:8080/restaurantListings/api/restaurant/getById/${restaurant.restaurantId}`;
+    // const currentUser: any = localStorage.getItem('currentUser');
+    // const user = JSON.parse(currentUser);
+    // const header = new HttpHeaders({ Authorization: `Bearer ${user['jwt']}` });
 
-    this.httpClient.get<any>(url, { headers: header }).subscribe(
+    this.httpClient.get<any>(url).subscribe(
       response => {
         this.menusSubject.next(response.menus); // Update the BehaviorSubject with new menus
-        this.router.navigate(['/restaurantDetails']);
+        this.router.navigate([`/restaurantDetails/${restaurant.restaurantId}`]);
       },
       error => {
         console.error('Error fetching restaurant data', error);
+        console.log(error.message);
       }
     );
   }
