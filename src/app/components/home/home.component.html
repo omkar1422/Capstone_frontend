@@ -1,4 +1,12 @@
 <div class="container py-5">
+
+  <!-- <div class="text-center mb-5">
+    <h1 style="font-family: 'Lucida Handwriting', 'Cursive', sans-serif; font-size: 48px; font-weight: bold; color: #E23745;">
+      Order from the Best Restos Out in the City
+    </h1>
+    <p style="font-size: 20px; color: #555;">Discover amazing restaurants near you and enjoy delicious meals!</p>
+  </div> -->
+
   <div class="row">
     <ng-container *ngFor="let restaurant of restaurantsList">
       <div class="col-md-3">
@@ -17,10 +25,7 @@
               <span class="ms-2">{{restaurant.restaurantAvgRating}}</span>
             </div>
 
-            <!-- Additional Restaurant Details (commented out) -->
-            <!-- <p>{{restaurant.deliveryTime}}</p>
-            <p>{{restaurant.cuisineType}}</p>
-            <p>{{restaurant.location}}</p> -->
+            <p>{{restaurant.restaurantAddress}}</p>
           </div>
         </div>
       </div>
