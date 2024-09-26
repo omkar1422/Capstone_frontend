@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand-lg " style="background-color: #E23745; color: #fff;" data-bs-theme="light">
+<nav class="nav navbar navbar-expand-lg " data-bs-theme="light">
+
   <div class="container-fluid">
-    <!-- <a class="navbar-brand" routerLink="/">Restaurant Listing</a> -->
-    <img class="ms-4 me-4" src="../../../assets/images/image (1).png" alt="" height="75px" width="75px">
+
+    <img class="ms-4 me-4" src="../../../assets/images/image (1).png" alt="logo" height="60px" width="60px">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
       aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -28,8 +29,10 @@
         </li>
 
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Search">
+      <form class="d-flex" (ngSubmit)="onSearch()">
+        <input class="form-control me-sm-2" type="search" placeholder="Search" [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearch()"
+        name="searchQuery">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
     </div>

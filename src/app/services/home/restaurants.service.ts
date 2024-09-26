@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Restaurant } from 'src/app/model/restaurant';
 import { MenuCartService } from '../menu-cart/menu-cart.service';
 
@@ -9,6 +9,10 @@ import { MenuCartService } from '../menu-cart/menu-cart.service';
   providedIn: 'root'
 })
 export class RestaurantsService {
+
+  private searchString = new BehaviorSubject<string>("")
+
+  search$ = this.searchString.asObservable();
 
   constructor(public httpClient: HttpClient, public router: Router, public menuService: MenuCartService) { }
 
@@ -20,6 +24,9 @@ export class RestaurantsService {
     // return this.httpClient.get<any>(url,{headers:header})
     return this.httpClient.get<any>(url)
 
+  }
+  setSearch(search:string){
+    this.searchString.next(search);
   }
 
   getAvgRating(restaurantId: string): Observable<any> {

@@ -1,9 +1,33 @@
 .star-rating i {
-    font-size: 24px;
-    color: #FFD700; /* Gold color for stars */
-    cursor: pointer;
-  }
-  
-  .star-rating i:hover {
-    color: #FFA500; /* Lighter color on hover */
-  }
+  font-size: 24px;
+  color: #FFD700;
+  cursor: pointer;
+}
+
+.star-rating i:hover {
+  color: #FFA500;
+}
+
+.h {
+  color: #E23745;
+}
+
+.prg-bar {
+  height: 8px; background-color: #f5f5f5;
+}
+
+.progress-bar {
+  background-color: #E23745;
+}
+
+.submit-btn {
+  background-color: #E23745;
+   color: #fff;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px; 
+  font-size: 18px; 
+  background-color: #E23745;
+}

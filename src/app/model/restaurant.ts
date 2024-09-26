@@ -9,5 +9,6 @@ export class Restaurant {
     restaurantPhone!: string;
     restaurantImage!: string;
     restaurantAvgRating!: number
+    restaurantType !: string
     menus!: RestaurantsMenu[];
 }

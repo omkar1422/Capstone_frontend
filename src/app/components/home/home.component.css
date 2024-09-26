@@ -1,0 +1,21 @@
+.orange{
+    background-color: #e27f37;
+}
+
+.filter-btn {
+    border-color: #e27f37;
+}
+
+.restaurant-card {
+    border-radius: 10px;
+     border: none;
+}
+
+.restaurant-img {
+    height: 200px; 
+    border-radius: 10px;
+}
+
+.star-rating {
+    color: #FFD700;
+}

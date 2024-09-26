@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <h3>Menu</h3>
   <div class="row">
-    <div class="col-md-3" *ngFor="let menu of menus">
+    <div class="col-md-3" *ngFor="let menu of filteredMenus">
       <div class="card my-3">
         <img [src]="menu.menuImage" class="card-img-top" alt="{{ menu.menuName }}">
         <div class="card-body">
@@ -12,8 +12,7 @@
           <!-- Add Button or Quantity Selector -->
           <div *ngIf="menu.quantity === 0; else qtyButtons">
             <button class="btn btn-outline-primary btn-block" 
-                    (click)="addToSelection(menu)"
-                    style="color: #E23745; border-color: #E23745;">
+                    (click)="addToSelection(menu)">
               Add
             </button>
           </div>
@@ -22,17 +21,14 @@
           <ng-template #qtyButtons>
             <div class="input-group">
               <button class="btn btn-outline-secondary" 
-                      (click)="decrementQuantity(menu)" 
-                      style="color: #E23745; border-color: #E23745;">
+                      (click)="decrementQuantity(menu)">
                 -
               </button>
               <input type="text" class="form-control text-center" 
                      [value]="menu.quantity" 
-                     readonly 
-                     style="border-color: #E23745;">
+                     readonly>
               <button class="btn btn-outline-secondary" 
-                      (click)="incrementQuantity(menu)" 
-                      style="color: #E23745; border-color: #E23745;">
+                      (click)="incrementQuantity(menu)" >
                 +
               </button>
             </div>
@@ -45,9 +41,8 @@
   <!-- Add to Cart Button to Add All Selected Items -->
   <div class="row">
     <div class="col-md-12 text-center mt-4">
-      <button class="btn btn-success" 
-              (click)="finalizeAddToCart()" 
-              style="background-color: #E23745; border-color: #E23745;">
+      <button class="btn add-to-cart-btn btn-success" 
+              (click)="finalizeAddToCart()">
         Add to Cart
       </button>
     </div>

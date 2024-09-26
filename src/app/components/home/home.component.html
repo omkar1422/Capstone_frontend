@@ -1,34 +1,45 @@
 <div class="container py-5">
 
-  <!-- <div class="text-center mb-5">
-    <h1 style="font-family: 'Lucida Handwriting', 'Cursive', sans-serif; font-size: 48px; font-weight: bold; color: #E23745;">
-      Order from the Best Restos Out in the City
-    </h1>
-    <p style="font-size: 20px; color: #555;">Discover amazing restaurants near you and enjoy delicious meals!</p>
-  </div> -->
+  <!-- Chips for filtering -->
+  <div class="d-flex justify-content-center mb-4">
+    <button class="btn btn-outline-danger me-2 filter-btn"
+            [class.active]="selectedFilter === 'pureVeg'" 
+            (click)="selectFilter('pureVeg')">Pure Veg</button>
 
+    <button class="btn btn-outline-danger me-2 filter-btn" 
+            [class.active]="selectedFilter === 'nonVeg'" 
+            (click)="selectFilter('nonVeg')">Non-Veg</button>
+
+    <button class="btn btn-outline-danger filter-btn" 
+            [class.active]="selectedFilter === 'rating'" 
+            (click)="selectFilter('rating')">Ratings 4.0 +</button>
+  </div>
+  
   <div class="row">
-    <ng-container *ngFor="let restaurant of restaurantsList">
+    <ng-container *ngFor="let restaurant of filteredRestaurants">
       <div class="col-md-3">
-        <div (click)="getRestaurantDetails(restaurant)" class="card mb-3" style="border-radius: 10px; border: none;">
-          <img src="{{restaurant.restaurantImage}}" class="card-img-top" alt="{{restaurant.restaurantName}}"
-            style="height: 200px; border-radius: 10px;">
+        <div (click)="getRestaurantDetails(restaurant)" class="card mb-3 link-div restaurant-card">
+          <img src="{{restaurant.restaurantImage}}" class="card-img-top restaurant-img" alt="{{restaurant.restaurantName}}">
           <div class="card-body" style="border: none;">
-            <h5 class="card-title">{{restaurant.restaurantName}}</h5>
+            <h5 class="card-title">{{restaurant.restaurantName}}
+              <!-- <img src="../../../assets/images/icons8-non-veg-48.png" alt="Non-Veg" style="width: 30px; height: 30px;"> -->
+            </h5>
 
-            <!-- Average Rating and Stars -->
             <div class="d-flex align-items-center">
-              <!-- Display stars dynamically -->
+              
               <ng-container *ngFor="let star of getStars(restaurant.restaurantAvgRating); let i = index">
-                <i [ngClass]="star" aria-hidden="true" style="color: #FFD700;"></i>
+                <i class="star-rating" [ngClass]="star" aria-hidden="true"></i>
               </ng-container>
               <span class="ms-2">{{restaurant.restaurantAvgRating}}</span>
             </div>
-
             <p>{{restaurant.restaurantAddress}}</p>
+            <p *ngIf="restaurant.restaurantType === 'pure veg'"> Veg Assured Resto ! </p>
+            <p *ngIf="restaurant.restaurantType === null"> Non-Veg Assured Resto ! </p>
+
           </div>
         </div>
       </div>
     </ng-container>
   </div>
 </div>
+

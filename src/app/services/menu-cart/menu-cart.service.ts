@@ -18,7 +18,15 @@ export class MenuCartService {
   private cartItemsSubject = new BehaviorSubject<RestaurantsMenu[]>([]);
   cartItems$ = this.cartItemsSubject.asObservable();
 
+  private searchString = new BehaviorSubject<string>("")
+
+  search$ = this.searchString.asObservable();
+
   constructor(public httpClient: HttpClient, public router: Router) { }
+
+  setSearch(search:string){
+    this.searchString.next(search);
+  }
 
   addToCart(menu: RestaurantsMenu) {
     const existingItem = this.cartItems.find(item => item.menuId === menu.menuId);

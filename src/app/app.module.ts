@@ -21,7 +21,7 @@ import { PlacedOrdersComponent } from './components/placed-orders/placed-orders.
 import { AddressComponent } from './components/address/address.component';
 import { ManageNotificationsComponent } from './components/manage-notifications/manage-notifications.component';
 import { FaqsComponent } from './components/faqs/faqs.component';
-import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -40,14 +40,17 @@ import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
     PlacedOrdersComponent,
     AddressComponent,
     ManageNotificationsComponent,
-    FaqsComponent
+    FaqsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTabsModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

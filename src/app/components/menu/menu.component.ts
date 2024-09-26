@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AddToCart } from 'src/app/model/add-to-cart';
 import { RestaurantsMenu } from 'src/app/model/restaurants-menu';
 import { AuthService } from 'src/app/services/authentication/auth.service';
@@ -13,7 +14,9 @@ import { MenuCartService } from 'src/app/services/menu-cart/menu-cart.service';
 export class MenuComponent {
 
   menus: RestaurantsMenu[] = [];
+  filteredMenus: RestaurantsMenu[] = []
   selectedItems: RestaurantsMenu[] = []; // Array to store selected items
+  searchSubscription!: Subscription;
 
   constructor(private menuService: MenuCartService, public authService: AuthService) { }
 
@@ -21,9 +24,23 @@ export class MenuComponent {
     // Subscribe to menu service to fetch menu items
     this.menuService.menus$.subscribe(menus => {
       this.menus = menus;
-      // Initialize quantity to 0 for all items
+      this.filteredMenus = menus
       this.menus.forEach(menu => menu.quantity = 0);
     });
+
+    this.searchSubscription = this.menuService.search$.subscribe((query: string) => {
+      console.log("query in menu: " + query);
+      
+      this.filterMenus(query);
+    });
+  }
+
+  filterMenus(query: string) {
+    console.log("inside filterMenus");
+    
+    this.filteredMenus = this.menus.filter((menu) =>
+      menu.menuName.toLowerCase().includes(query.toLowerCase())
+    );
   }
 
   // Adds an item to the selected items array (initially sets quantity to 1)

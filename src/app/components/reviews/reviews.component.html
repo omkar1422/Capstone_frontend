@@ -1,11 +1,9 @@
-<!-- reviews.component.html -->
 <div class="container my-4">
   <h4 class="mb-4">Reviews</h4>
 
-  <!-- Rating Summary -->
   <div class="row">
     <div class="col-md-4 text-center">
-      <h1 class="display-4" style="color: #E23745;">{{ averageRating }}</h1>
+      <h1 class="h display-4">{{ averageRating }}</h1>
       <div class="stars" [ngClass]="getStarRatingClass(averageRating)"></div>
       <div *ngIf="ratings && ratings.length > 0">
         <p>{{ ratings.length }}+ reviews</p>
@@ -15,21 +13,21 @@
     <div class="col-md-8">
       <div class="rating-bar" *ngFor="let rate of ratingBreakdown">
         <span>{{ rate.stars }} </span>
-        <div class="progress" style="height: 8px; background-color: #f5f5f5;">
-          <div class="progress-bar" [style.width]="rate.percentage + '%'" style="background-color: #E23745;"></div>
+        <div class="prg-bar progress">
+          <div class="progress-bar" [style.width]="rate.percentage + '%'"></div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="container my-4">
-    <!-- <h4 class="mb-4">Reviews</h4> -->
 
     <!-- All Reviews Section -->
     <div class="row">
       <div class="col-lg-8 mx-auto">
 
         <!-- Post a Review Section -->
+        <ng-container *ngIf="authService.isCustomerLoggedIn">
         <div class="card shadow-sm mb-4">
           <div class="card-body">
             <h5>Post a Review</h5>
@@ -60,18 +58,18 @@
               </div>
 
               <!-- Submit Button -->
-              <button type="submit" class="btn" style="background-color: #E23745; color: #fff;">Submit Review</button>
+              <button type="submit" class="submit-btn btn">Submit Review</button>
             </form>
           </div>
         </div>
+      </ng-container>
 
         <!-- Review Card for each rating -->
         <div *ngFor="let rating of ratings" class="card shadow-sm mb-4">
           <div class="card-body">
             <div class="d-flex align-items-center">
               <!-- Avatar with initials or customer email -->
-              <div class="avatar rounded-circle text-white d-flex justify-content-center align-items-center"
-                style="width: 50px; height: 50px; font-size: 18px; background-color: #E23745;">
+              <div class="avatar rounded-circle text-white d-flex justify-content-center align-items-center">
                 <span>{{ getInitials(rating.customer.customerName) }}</span>
               </div>
 
