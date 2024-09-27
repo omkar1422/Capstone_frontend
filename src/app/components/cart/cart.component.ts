@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { CartByCustomer } from 'src/app/model/cart-by-customer';
 import { Menu } from 'src/app/model/Menu';
 import { RestaurantsMenu } from 'src/app/model/restaurants-menu';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { MenuCartService } from 'src/app/services/menu-cart/menu-cart.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +17,7 @@ export class CartComponent {
   cartItems!: CartByCustomer[]
   totalCartPrice: number = 0
   
-  constructor(private menuCartService: MenuCartService, public authService: AuthService) { }
+  constructor(private menuCartService: MenuCartService, public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCartItemsByCustomer()
@@ -67,6 +69,14 @@ export class CartComponent {
         console.log("response: " + JSON.stringify(response))
         
         this.cartItems = []
+
+        Swal.fire({
+          title: 'Success!',
+          text: 'Placed Order successfully',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this.router.navigate(['/'])
       },
       error => console.log("error: " + error)
       

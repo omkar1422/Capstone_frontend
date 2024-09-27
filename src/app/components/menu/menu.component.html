@@ -1,18 +1,50 @@
-<div class="container mt-4">
-  <h3>Menu</h3>
-  <div class="row">
+<div class="container mt-4 position-relative">
+
+  <h4 class="mb-4"> {{restaurant?.restaurantName}} Reviews</h4>
+  
+  <div class="d-flex justify-content-center mb-2.4">
+    <button class="btn btn-outline-danger filter-btn veg-filter-btn" [class.active]="selectedFilter === 'veg'"
+      (click)="selectFilter('veg')">Pure Veg</button>
+
+    <button class="btn btn-outline-danger me-2 filter-btn" [class.active]="selectedFilter === '50-100'"
+      (click)="selectFilter('50-100')">50-100 ₹</button>
+
+    <button class="btn btn-outline-danger me-2 filter-btn" [class.active]="selectedFilter === '100-200'"
+      (click)="selectFilter('100-200')">100-200 ₹</button>
+
+    <button class="btn btn-outline-danger filter-btn" [class.active]="selectedFilter === '200-500'"
+      (click)="selectFilter('200-500')">200-500 ₹</button>
+
+    <button class="btn btn-outline-danger filter-btn non-veg-filter-btn" [class.active]="selectedFilter === 'non-veg'"
+      (click)="selectFilter('non-veg')">Non Veg</button>
+  </div>
+
+  
+
+  <!-- Add to Cart Button in the upper right corner -->
+  <button class="btn add-to-cart-btn btn-success position-absolute top-0 end-0 mt-3 me-3" (click)="finalizeAddToCart()">
+    Add to Cart
+  </button>
+
+  <div class="resto-card row mt-4">
     <div class="col-md-3" *ngFor="let menu of filteredMenus">
       <div class="card my-3">
         <img [src]="menu.menuImage" class="card-img-top" alt="{{ menu.menuName }}">
         <div class="card-body">
           <h5 class="card-title">{{ menu.menuName }}</h5>
-          <p class="card-text">{{ menu.menuName }}</p>
-          <p><strong>₹{{ menu.menuPrice }}</strong></p>
+          <p class="card-text">{{ menu.menuDescription }}</p>
+          <div class="d-flex justify-content-space-evenly">
+
+            <p class="price-para"><strong>₹{{ menu.menuPrice }}</strong></p>
+            <img *ngIf="menu.menuType === 'non-veg'" class="non-veg-img"
+              src="../../../assets/images/icons8-non-veg-48.png" alt="">
+            <img *ngIf="menu.menuType === 'veg'" class="veg-img" src="../../../assets/images/veg-icon.png" alt="">
+
+          </div>
 
           <!-- Add Button or Quantity Selector -->
           <div *ngIf="menu.quantity === 0; else qtyButtons">
-            <button class="btn btn-outline-primary btn-block" 
-                    (click)="addToSelection(menu)">
+            <button class="btn btn-outline-primary btn-block" (click)="addToSelection(menu)">
               Add
             </button>
           </div>
@@ -20,31 +52,17 @@
           <!-- Quantity Selector -->
           <ng-template #qtyButtons>
             <div class="input-group">
-              <button class="btn btn-outline-secondary" 
-                      (click)="decrementQuantity(menu)">
+              <button class="btn btn-outline-secondary increement-btn" (click)="decrementQuantity(menu)">
                 -
               </button>
-              <input type="text" class="form-control text-center" 
-                     [value]="menu.quantity" 
-                     readonly>
-              <button class="btn btn-outline-secondary" 
-                      (click)="incrementQuantity(menu)" >
+              <input type="text" class="form-control text-center text" [value]="menu.quantity" readonly>
+              <button class="btn btn-outline-secondary increement-btn" (click)="incrementQuantity(menu)">
                 +
               </button>
             </div>
           </ng-template>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Add to Cart Button to Add All Selected Items -->
-  <div class="row">
-    <div class="col-md-12 text-center mt-4">
-      <button class="btn add-to-cart-btn btn-success" 
-              (click)="finalizeAddToCart()">
-        Add to Cart
-      </button>
     </div>
   </div>
 </div>

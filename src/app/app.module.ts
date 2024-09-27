@@ -23,7 +23,6 @@ import { ManageNotificationsComponent } from './components/manage-notifications/
 import { FaqsComponent } from './components/faqs/faqs.component';
 import {MatChipsModule} from '@angular/material/chips';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +49,8 @@ import {MatChipsModule} from '@angular/material/chips';
     HttpClientModule,
     MatTabsModule,
     MatTabsModule,
-    MatChipsModule
+    MatChipsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

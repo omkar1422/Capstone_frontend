@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/model/user';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginUser } from 'src/app/model/login-user';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Injectable({
@@ -50,9 +50,27 @@ export class AuthService {
       localStorage.setItem('currentUser', JSON.stringify(storedUser));
 
       console.log("response.customer: " + JSON.stringify(response.customer))
+
+      Swal.fire({
+        title: 'Logged In Successfully!',
+        // text: '',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+
       this.router.navigate(['/'])
     },
-      error => console.log(error)
+    error => {
+      console.log(error)
+
+      Swal.fire({
+        title: 'Error!',
+        text: 'Login failed. Please check your credentials.',
+        icon: 'error',
+        confirmButtonText: 'Try Again'
+      });
+    }
+
     )
   }
 

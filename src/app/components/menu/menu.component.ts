@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AddToCart } from 'src/app/model/add-to-cart';
+import { Restaurant } from 'src/app/model/restaurant';
 import { RestaurantsMenu } from 'src/app/model/restaurants-menu';
 import { AuthService } from 'src/app/services/authentication/auth.service';
+import { RestaurantsService } from 'src/app/services/home/restaurants.service';
 import { MenuCartService } from 'src/app/services/menu-cart/menu-cart.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-menu',
@@ -17,11 +21,24 @@ export class MenuComponent {
   filteredMenus: RestaurantsMenu[] = []
   selectedItems: RestaurantsMenu[] = []; // Array to store selected items
   searchSubscription!: Subscription;
+  selectedFilter : string = ''
+  restaurantId: string = ''
+  restaurant !: Restaurant
 
-  constructor(private menuService: MenuCartService, public authService: AuthService) { }
+  constructor(private menuService: MenuCartService, public authService: AuthService, private router: Router,
+    private activatedRoute: ActivatedRoute, private restaurantService: RestaurantsService
+  ) { 
+    this.activatedRoute.paramMap.subscribe(params => {
+      if (params.get('restaurantId')) {
+        this.restaurantId = (params.get('restaurantId') ? Number(params.get('restaurantId')) : 0).toString()
+        console.log("restaurantId: " + this.restaurantId);
+        
+      }
+    })
+  }
 
   ngOnInit(): void {
-    // Subscribe to menu service to fetch menu items
+    
     this.menuService.menus$.subscribe(menus => {
       this.menus = menus;
       this.filteredMenus = menus
@@ -33,7 +50,57 @@ export class MenuComponent {
       
       this.filterMenus(query);
     });
+
+    this.getRestaurantById()
   }
+
+  getRestaurantById() {
+    this.restaurantService.getRestaurantById(this.restaurantId).subscribe(
+      response => {
+        this.restaurant = response
+      },
+      error => {
+        console.log("error: " + error);
+        
+      }
+    )
+  }
+
+  selectFilter(filter: string) {
+    if (this.selectedFilter === filter) {
+      // Deselect if the same filter is clicked again
+      this.selectedFilter = ''; 
+      this.filteredMenus = this.menus; // Reset to show all menus
+    } else {
+      // Apply the selected filter
+      this.selectedFilter = filter;
+      this.applyFilter(); // Call a method to apply the selected filter
+    }
+  }
+  
+  // Method to apply the selected filter
+  applyFilter() {
+    switch (this.selectedFilter) {
+      case 'veg':
+        this.filteredMenus = this.menus.filter(menu => menu.menuType === 'veg');
+        break;
+      case 'non-veg':
+        this.filteredMenus = this.menus.filter(menu => menu.menuType === 'non-veg');
+        break;
+      case '50-100':
+        this.filteredMenus = this.menus.filter(menu => menu.menuPrice >= 50 && menu.menuPrice <= 100);
+        break;
+      case '100-200':
+        this.filteredMenus = this.menus.filter(menu => menu.menuPrice >= 100 && menu.menuPrice <= 200);
+        break;
+      case '200-500':
+        this.filteredMenus = this.menus.filter(menu => menu.menuPrice >= 200 && menu.menuPrice <= 500);
+        break;
+      default:
+        this.filteredMenus = this.menus; // Reset to all items if no filter is selected
+    }
+  }
+  
 
   filterMenus(query: string) {
     console.log("inside filterMenus");
@@ -80,6 +147,18 @@ export class MenuComponent {
   }
 
   finalizeAddToCart() {
+
+    if(! this.authService.isCustomerLoggedIn ) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please Log In to add items to cart',
+        icon: 'error',
+        confirmButtonText: 'Try Again'
+      });
+
+      return
+    }
+    else{
     this.selectedItems.forEach(item => {
 
       this.menuService.addToCart(item)
@@ -93,11 +172,27 @@ export class MenuComponent {
 
       this.menuService.addItemToCart(addToCart).subscribe(reponse => {
           console.log("response: " + reponse);
-        }, error => console.log(error)
+          Swal.fire({
+            title: 'Added items to Cart!',
+            // text: 'Logged In Successfully',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+          this.router.navigate(['/cart'])
+        }, error =>  {console.log(error)
+          Swal.fire({
+            title: 'Failed to add items to Cart!',
+            // text: 'Logged In Successfully',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+         }
       )
+      
 
     }
     ); 
+  }
     console.log('Selected items added to cart:', this.selectedItems);
     this.clearSelection();
   }

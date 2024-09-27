@@ -21,25 +21,20 @@
         <div (click)="getRestaurantDetails(restaurant)" class="card mb-3 link-div restaurant-card">
           <img src="{{restaurant.restaurantImage}}" class="card-img-top restaurant-img" alt="{{restaurant.restaurantName}}">
           <div class="card-body" style="border: none;">
-            <h5 class="card-title">{{restaurant.restaurantName}}
-              <!-- <img src="../../../assets/images/icons8-non-veg-48.png" alt="Non-Veg" style="width: 30px; height: 30px;"> -->
-            </h5>
+            <h5 class="card-title">{{restaurant.restaurantName}}</h5>
 
             <div class="d-flex align-items-center">
-              
               <ng-container *ngFor="let star of getStars(restaurant.restaurantAvgRating); let i = index">
                 <i class="star-rating" [ngClass]="star" aria-hidden="true"></i>
               </ng-container>
               <span class="ms-2">{{restaurant.restaurantAvgRating}}</span>
             </div>
             <p>{{restaurant.restaurantAddress}}</p>
-            <p *ngIf="restaurant.restaurantType === 'pure veg'"> Veg Assured Resto ! </p>
-            <p *ngIf="restaurant.restaurantType === null"> Non-Veg Assured Resto ! </p>
-
+            <p class="veg-tag" *ngIf="restaurant.restaurantType === 'pure veg'">Veg Assured Resto!</p>
+            <p class="non-veg-tag" *ngIf="restaurant.restaurantType === null">Non-Veg Assured Resto!</p>
           </div>
         </div>
       </div>
     </ng-container>
   </div>
 </div>
-

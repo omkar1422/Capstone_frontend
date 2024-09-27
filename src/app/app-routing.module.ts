@@ -48,7 +48,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: "menu",
+    path: "restaurantDetails/:restaurantId/menu",
     component: MenuComponent
   },
   {

@@ -60,13 +60,8 @@ export class MenuCartService {
   }
 
   getRestaurantById(restaurant: Restaurant){
-    console.log("restaurant: " + JSON.stringify(restaurant))
     
     const url = `http://localhost:8080/restaurantListings/api/restaurant/getById/${restaurant.restaurantId}`;
-    // const currentUser: any = localStorage.getItem('currentUser');
-    // const user = JSON.parse(currentUser);
-    // const header = new HttpHeaders({ Authorization: `Bearer ${user['jwt']}` });
-
     this.httpClient.get<any>(url).subscribe(
       response => {
         this.menusSubject.next(response.menus); // Update the BehaviorSubject with new menus

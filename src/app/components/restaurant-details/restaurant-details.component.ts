@@ -11,12 +11,17 @@ export class RestaurantDetailsComponent {
 
   restaurantId:number=0;
 
+  isMenuActive : boolean = true
+
   constructor(private router: Router) {
     
    }
 
-  ngOnInit(): void {
+  enableReviews() {
+    this.isMenuActive = false
+  }
 
-
-  }  
+  enableMenu() {
+    this.isMenuActive = true
+  }
 }

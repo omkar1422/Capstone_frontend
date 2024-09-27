@@ -8,7 +8,11 @@
 
 .restaurant-card {
     border-radius: 10px;
-     border: none;
+    border: none;
+}
+
+.one-card :hover {
+    box-shadow: 0 4px 8px 0 grey;
 }
 
 .restaurant-img {
@@ -18,4 +22,12 @@
 
 .star-rating {
     color: #FFD700;
+}
+
+.veg-tag {
+    color: rgb(4, 46, 4);
+}
+
+.non-veg-tag {
+    color: red;
 }

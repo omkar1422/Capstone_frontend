@@ -18,31 +18,26 @@ export class RestaurantsService {
 
   getRestaurants(): Observable<any> {
     const url = `http://localhost:8080/restaurantListings/api/restaurant/getAllRestaurants`
-    // const currentUser:any = localStorage.getItem('currentUser');
-    // const user = JSON.parse(currentUser);
-    // const header = new HttpHeaders({Authorization: `Bearer ${user['jwt']}`})
-    // return this.httpClient.get<any>(url,{headers:header})
     return this.httpClient.get<any>(url)
 
   }
+
   setSearch(search:string){
     this.searchString.next(search);
   }
 
   getAvgRating(restaurantId: string): Observable<any> {
     const url = `http://localhost:8080/restaurantListings/api/rating/averageRating/${restaurantId}`
-    // const currentUser:any = localStorage.getItem('currentUser');
-    // const user = JSON.parse(currentUser);
-    // const header = new HttpHeaders({Authorization: `Bearer ${user['jwt']}`})
-    // return this.httpClient.get<any>(url, {headers: header})
     return this.httpClient.get<any>(url)
   }
 
-  getAllRatings(restaurantId: number) {
+  getAllRatings(restaurantId: number): Observable<any> {
     const url = `http://localhost:8080/restaurantListings/api/rating/allRatings/${restaurantId}`
-    // const currentUser:any = localStorage.getItem('currentUser');
-    // const user = JSON.parse(currentUser);
-    // const header = new HttpHeaders({Authorization: `Bearer ${user['jwt']}`})
+    return this.httpClient.get<any>(url)
+  }
+
+  getRestaurantById(restaurantId: string): Observable<any> {
+    const url = `http://localhost:8080/restaurantListings/api/restaurant/getById/${restaurantId}`
     return this.httpClient.get<any>(url)
   }
 }

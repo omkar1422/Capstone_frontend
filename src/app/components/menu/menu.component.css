@@ -1,10 +1,43 @@
-.btn {
-    color: #E23745;
-    border-color: #E23745;
-}
-
 .add-to-cart-btn {
     background-color: #E23745;
     border-color: #E23745;
     color: #fff;
+}
+
+.filter-btn {
+    border-color: #e27f37;
+}
+
+.price-para {
+    margin-right: 180px;
+}
+
+.veg-img {
+    height: 30px;
+    width: 30px;
+}
+
+.non-veg-img {
+    height: 40px;
+    width: 40px;
+}
+
+.veg-filter-btn {
+    margin-right: 8px;
+}
+
+.non-veg-filter-btn {
+    margin-left: 8px;
+}
+
+.increement-btn {
+    border-color: #E23745;
+}
+
+.text {
+    border-color: #E23745;
+}
+
+.resto-card :hover {
+    cursor: pointer;
 }

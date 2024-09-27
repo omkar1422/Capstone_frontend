@@ -33,6 +33,8 @@ export class ReviewsComponent {
   reviewText: string = '';
 
   newReview !: NewReview
+
+  restaurant !: Restaurant | null
  
   constructor(public authService: AuthService, public restaurantsService: RestaurantsService, public menuService: MenuCartService,
      public activatedRoute: ActivatedRoute, public reviewsService: ReviewsRatingsService) {
@@ -47,6 +49,20 @@ export class ReviewsComponent {
   ngOnInit() {
     this.getAvgRating()
     this.getAllRatings()
+    this.getRestaurantById(this.restaurantId.toString())
+  }
+
+  getRestaurantById(restaurantId: string) {
+    this.restaurantsService.getRestaurantById(restaurantId).subscribe(
+      response => {
+        this.restaurant = response
+        console.log("restaurant: " + this.restaurant);
+        
+      },
+      error => {
+        console.log("error: " + JSON.stringify(error))
+      }
+    )
   }
 
   submitReview(): void {

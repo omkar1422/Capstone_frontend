@@ -5,6 +5,8 @@ export class RestaurantsMenu {
   menuPrice!: number;
   menuImage!: string;
   quantity: number;
+  menuDescription !: string
+  menuType !: string
 
   constructor() {
     this.quantity = 0
