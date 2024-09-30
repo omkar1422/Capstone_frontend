@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { CartByCustomer } from 'src/app/model/cart-by-customer';
 import { Menu } from 'src/app/model/Menu';
@@ -21,7 +21,38 @@ export class CartComponent {
 
   ngOnInit(): void {
     this.getCartItemsByCustomer()
-    
+  }
+
+  increementQuantity(cartItem: CartByCustomer) {
+    cartItem.qty++
+
+    this.menuCartService.updateCartItem(cartItem).subscribe(
+      response => {
+        console.log("response: " + JSON.stringify(response));
+        
+      }
+    )
+    this.calculateTotalCartPrice()
+
+  }
+
+  decreementQuantity(cartItem: CartByCustomer) {
+
+    if(cartItem.qty > 0) {
+      cartItem.qty--
+    }
+
+    if(cartItem.qty === 0) {
+      this.removeItemFromCart(cartItem.menu, cartItem.cartId)
+    }
+
+    this.menuCartService.updateCartItem(cartItem).subscribe(
+      response => {
+        console.log("response: " + JSON.stringify(response));
+        
+      }
+    )
+    this.calculateTotalCartPrice()
   }
 
   calculateTotalCartPrice() {

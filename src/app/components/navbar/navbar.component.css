@@ -1,8 +1,13 @@
 .nav-item .nav-link{
     color: #fff;
+    font-size: medium;
 }
 
 .nav {
     background-color: #E23745;
     color: #fff;
+}
+
+.cart-icon {
+    font-size: 18px;
 }

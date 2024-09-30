@@ -31,6 +31,7 @@
 }
 
 .increement-btn {
+    background-color: #E23745; color:#fff; border-color: #E23745;
     border-color: #E23745;
 }
 
@@ -38,6 +39,16 @@
     border-color: #E23745;
 }
 
-.resto-card :hover {
+.menu-card {
+    transition: box-shadow 0.3s ease-in-out;
     cursor: pointer;
+  }
+  
+  .menu-card:hover {
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0 4px 8px grey;
+  }
+
+.h {
+    color: #E23745;
 }

@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { User } from 'src/app/model/user';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { NgForm } from '@angular/forms';
+import { Route, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +16,7 @@ export class SignUpComponent {
 
   user: User
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private router: Router) {
     this.user = new User()
   }
 
@@ -30,6 +32,13 @@ export class SignUpComponent {
 
     this.authService.saveCustomer(this.user).subscribe(response => {
       console.log(response);
+      Swal.fire({
+        title: 'Registered Successfully!',
+        // text: '',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      this.router.navigate(['/signin'])
     },
     error => console.log(error) 
   )

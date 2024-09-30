@@ -16,7 +16,9 @@
           <a class="nav-link" routerLink="/profile" routerLinkActive="active">Hii {{authService.user.customerName}}</a>
         </li>
         <li class="nav-item" *ngIf="authService.isCustomerLoggedIn">
-          <a class="nav-link" routerLink="/cart" routerLinkActive="active">My Cart</a>
+          <a class="nav-link " routerLink="/cart" routerLinkActive="active">
+            <i class="bi bi-cart cart-icon"></i>
+          </a>
         </li>
         <li class="nav-item" *ngIf="!authService.isCustomerLoggedIn">
           <a class="nav-link" routerLink="/signin" routerLinkActive="active">Sign In</a>

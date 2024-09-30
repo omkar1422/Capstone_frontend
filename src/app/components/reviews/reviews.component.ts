@@ -23,10 +23,10 @@ export class ReviewsComponent {
   newReviewText: string = '';
   newRating: number = 0;
 
-  stars: number[] = [1,2,3,4,5];
+  stars: number[] = [1, 2, 3, 4, 5];
 
-  ratings : RatingOfRestaurantByCustomer[] = []
- 
+  ratings: RatingOfRestaurantByCustomer[] = []
+
   selectedRating: number = 0;
   hoveredRating: number = 0;
 
@@ -35,9 +35,9 @@ export class ReviewsComponent {
   newReview !: NewReview
 
   restaurant !: Restaurant | null
- 
+
   constructor(public authService: AuthService, public restaurantsService: RestaurantsService, public menuService: MenuCartService,
-     public activatedRoute: ActivatedRoute, public reviewsService: ReviewsRatingsService) {
+    public activatedRoute: ActivatedRoute, public reviewsService: ReviewsRatingsService) {
 
     this.activatedRoute.paramMap.subscribe(params => {
       if (params.get('restaurantId')) {
@@ -57,7 +57,7 @@ export class ReviewsComponent {
       response => {
         this.restaurant = response
         console.log("restaurant: " + this.restaurant);
-        
+
       },
       error => {
         console.log("error: " + JSON.stringify(error))
@@ -69,10 +69,10 @@ export class ReviewsComponent {
 
     this.newReview = {
       customer: {
-        customerId: 0 // or any default value
+        customerId: 0
       },
       restaurant: {
-        restaurantId: 0 // or any default value
+        restaurantId: 0
       },
       rating: 0,
       reviewText: ''
@@ -85,7 +85,6 @@ export class ReviewsComponent {
     console.log("this.newReviewText.trim(): " + this.reviewText.trim());
 
     if (this.selectedRating === 0 || this.reviewText.trim() === '') {
-      // You can show a message to the user to fill out all required fields
 
       alert('Please select a rating and write a review.');
       return;
@@ -100,19 +99,19 @@ export class ReviewsComponent {
       response => {
         console.log('Review submitted successfully', response);
         this.resetForm();
+        this.getAllRatings()
       },
       error => {
-        // Handle error
         console.error('Error submitting review', error);
       }
     );
   }
 
-  // Reset the form fields after successful submission
   resetForm(): void {
-    // this.newReview = new NewReview();
-    this.newReview.customer = { customerId: 0 }; // Default values
+    this.newReview.customer = { customerId: 0 };
     this.newReview.restaurant = { restaurantId: 0 };
+    this.selectedRating = 0;
+    this.reviewText = '';
   }
 
   getInitials(name: string): string {
@@ -128,16 +127,15 @@ export class ReviewsComponent {
     { stars: 2, percentage: 0 },
     { stars: 1, percentage: 0 }
   ];
-  
+
   getAllRatings() {
     this.restaurantsService.getAllRatings(this.restaurantId).subscribe(
       response => {
         this.ratings = response;
 
         const totalRatings = this.ratings.length;
-  
+
         if (totalRatings > 0) {
-          // Count the number of ratings for each star level
           const ratingCounts = {
             1: this.ratings.filter(r => r.rating >= 1 && r.rating < 2).length,
             2: this.ratings.filter(r => r.rating >= 2 && r.rating < 3).length,
@@ -145,8 +143,7 @@ export class ReviewsComponent {
             4: this.ratings.filter(r => r.rating >= 4 && r.rating < 5).length,
             5: this.ratings.filter(r => r.rating === 5).length
           };
-  
-          // Update the ratingBreakdown with percentages
+
           this.ratingBreakdown = [
             { stars: 5, percentage: (ratingCounts[5] / totalRatings) * 100 },
             { stars: 4, percentage: (ratingCounts[4] / totalRatings) * 100 },
@@ -155,7 +152,6 @@ export class ReviewsComponent {
             { stars: 1, percentage: (ratingCounts[1] / totalRatings) * 100 }
           ];
         } else {
-          // Handle case where there are no ratings
           this.ratingBreakdown = [
             { stars: 5, percentage: 0 },
             { stars: 4, percentage: 0 },
@@ -164,7 +160,7 @@ export class ReviewsComponent {
             { stars: 1, percentage: 0 }
           ];
         }
-  
+
         console.log("Rating breakdown: ", this.ratingBreakdown);
       },
       error => {
@@ -172,7 +168,7 @@ export class ReviewsComponent {
       }
     );
   }
-  
+
 
   getAvgRating() {
     this.restaurantsService.getAvgRating(this.restaurantId.toString()).subscribe(
@@ -199,7 +195,7 @@ export class ReviewsComponent {
   hoverRating(rating: number): void {
     this.hoveredRating = rating;
   }
-  
+
   selectRating(rating: number): void {
     this.selectedRating = rating;
   }

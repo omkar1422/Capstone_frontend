@@ -1,6 +1,6 @@
 <div class="container mt-4 position-relative">
 
-  <h4 class="mb-4"> {{restaurant?.restaurantName}} Reviews</h4>
+  <h4 class="h mb-4"> {{restaurant?.restaurantName}} Menu</h4>
   
   <div class="d-flex justify-content-center mb-2.4">
     <button class="btn btn-outline-danger filter-btn veg-filter-btn" [class.active]="selectedFilter === 'veg'"
@@ -26,9 +26,9 @@
     Add to Cart
   </button>
 
-  <div class="resto-card row mt-4">
+  <div class=" row mt-4">
     <div class="col-md-3" *ngFor="let menu of filteredMenus">
-      <div class="card my-3">
+      <div class="menu-card card my-3 menu-card">
         <img [src]="menu.menuImage" class="card-img-top" alt="{{ menu.menuName }}">
         <div class="card-body">
           <h5 class="card-title">{{ menu.menuName }}</h5>

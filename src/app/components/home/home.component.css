@@ -21,13 +21,24 @@
 }
 
 .star-rating {
-    color: #FFD700;
+    color: #E23745;
 }
 
 .veg-tag {
-    color: rgb(4, 46, 4);
+    color: green;
 }
 
 .non-veg-tag {
     color: red;
 }
+
+.restaurant-card {
+    transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    border: whitesmoke 20px;
+  }
+  
+  .restaurant-card:hover {
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0 4px 8px grey;
+  }

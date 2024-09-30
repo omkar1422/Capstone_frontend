@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AddToCart } from 'src/app/model/add-to-cart';
+import { CartByCustomer } from 'src/app/model/cart-by-customer';
 import { Restaurant } from 'src/app/model/restaurant';
 import { RestaurantsMenu } from 'src/app/model/restaurants-menu';
+import { AuthService } from '../authentication/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +24,27 @@ export class MenuCartService {
 
   search$ = this.searchString.asObservable();
 
-  constructor(public httpClient: HttpClient, public router: Router) { }
+  updatedCartItemObj !: AddToCart
+
+  constructor(public httpClient: HttpClient, public router: Router, private authService: AuthService) {
+    this.updatedCartItemObj = new AddToCart()
+   }
 
   setSearch(search:string){
     this.searchString.next(search);
+  }
+
+  updateCartItem(cartItem: CartByCustomer): Observable<any> {
+    this.updatedCartItemObj.cartId = cartItem.cartId
+    this.updatedCartItemObj.customer = this.authService.user
+    this.updatedCartItemObj.menu = cartItem.menu
+    this.updatedCartItemObj.qty = cartItem.qty
+
+    const url = `http://localhost:8080/restaurantListings/api/cart/updateQty`
+    const currentUser:any = localStorage.getItem('currentUser');
+    const user = JSON.parse(currentUser);
+    const headers = new HttpHeaders({Authorization: `Bearer ${user['jwt']}`})
+    return this.httpClient.put<any>(url, this.updatedCartItemObj, {headers: headers})
   }
 
   addToCart(menu: RestaurantsMenu) {

@@ -12,7 +12,18 @@
                   <p>Quantity: {{ item.qty }}</p>
                   <p>Price: ₹{{ item.menu.menuPrice }}</p>
                 </div>
-                <button class="btn" (click)="removeItemFromCart(item.menu, item.cartId)">Remove</button>
+                <!-- <button class="btn" (click)="removeItemFromCart(item.menu, item.cartId)">Remove</button> -->
+                <!-- <ng-template> -->
+                  <div class="input-group">
+                    <button class="btn btn-outline-secondary increement-btn" (click)="decreementQuantity(item)">
+                      -
+                    </button>
+                    <input type="text" class="form-control text-center text" [value]="item.qty" readonly>
+                    <button class="btn btn-outline-secondary increement-btn" (click)="increementQuantity(item)">
+                      +
+                    </button>
+                  </div>
+                <!-- </ng-template> -->
               </div>
             </li>
           </ul>
@@ -28,7 +39,7 @@
     </div>
   
     <ng-template #emptyCart>
-      <p>Your cart is empty.</p>
+      <p class="para" routerLink="/">Your cart is empty, order now !.</p>
     </ng-template>
   </div>
   

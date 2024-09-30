@@ -17,8 +17,8 @@
   
   <div class="row">
     <ng-container *ngFor="let restaurant of filteredRestaurants">
-      <div class="col-md-3">
-        <div (click)="getRestaurantDetails(restaurant)" class="card mb-3 link-div restaurant-card">
+      <div class="resto-card col-md-3">
+        <div (click)="getRestaurantDetails(restaurant)" class="card my-4 link-div restaurant-card">
           <img src="{{restaurant.restaurantImage}}" class="card-img-top restaurant-img" alt="{{restaurant.restaurantName}}">
           <div class="card-body" style="border: none;">
             <h5 class="card-title">{{restaurant.restaurantName}}</h5>
